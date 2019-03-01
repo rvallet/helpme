@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- dataSource (connexion vers la base de données) -->
+	<!-- dataSource côté serveur <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/myDataSource" 
+		/> -->
+	<!-- datasource locale -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/ryft_bdd?useSSL=false&amp;autoReconnect=true" />
+		<property name="username" value="root" />
+		<property name="password" value="admin" />
+	</bean>
+
+	<!-- support d'annotations JPA -->
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<!-- config de la sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>fr.dawan.mvc1.beans</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQL5InnoDBDialect
+				</prop>
+				<!-- En prod mettre a false -->
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- <prop key="hibernate.generate_statistics">true</prop> -->
+
+				<!-- Comment hibernante va gérer les modifications sur la base -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+
+				<!-- Cache de niv2 <prop key="hibernate.cache.use_second_level_cache">true</prop> 
+					<prop key="hibernate.cache.region.factory_class"> org.hibernate.cache.ehcache.EhCacheRegionFactory 
+					</prop> <prop key="hibernate.cache.use_query_cache">true</prop> -->
+
+				<!-- Configuring Connection Pool -->
+				<prop key="hibernate.c3p0.min_size">5</prop>
+				<prop key="hibernate.c3p0.max_size">20</prop>
+				<prop key="hibernate.c3p0.timeout">50</prop>
+				<prop key="hibernate.c3p0.max_statements">50</prop>
+				<prop key="hibernate.c3p0.idle_test_period">2000</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- support des transactions par annotations @Transactional -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="autodetectDataSource" value="true" />
+	</bean>
+
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+
+	<!-- surcouche de l'entityManager => HibernateTemplate -->
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- DAO -->
+	<bean id="userDao" class="fr.dawan.mvc1.dao.UserDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+		<bean id="problemDao" class="fr.dawan.mvc1.dao.ProblemDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	<bean id="problemtypeDao" class="fr.dawan.mvc1.dao.ProblemTypeDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	<bean id="adviceDao" class="fr.dawan.mvc1.dao.AdviceDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	<bean id="TestemonyDao" class="fr.dawan.mvc1.dao.TestemonyDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	<bean id="ObjectiveDao" class="fr.dawan.mvc1.dao.ObjectiveDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+</beans>

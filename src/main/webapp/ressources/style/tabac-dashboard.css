@@ -1,0 +1,89 @@
+.top-dashboard, .middle-dashboard, .bot-dashboard {
+	height: 25vh;
+}
+
+.row1, .row2{
+	
+}
+.case1, .case5, .case6 {
+	
+}
+.case1:hover, .case3:hover,.case5:hover, .case6:hover, .case7:hover {
+	box-shadow: 0 1px 1px 0 #C7C7C7 inset;
+	background: none repeat scroll 0 0 #E9E9E9;
+}
+.case3 {
+
+}
+a:link 
+{ 
+text-decoration:none; 
+} 
+.dashboard a:link, .dashboard a:visited, .dashboard a:active, .dashboard p, .dashboard a, p{
+	color: #395099;
+	margin-bottom: 0;
+	font-style: normal;
+	font-size: 19px;
+}
+.dashboard a:hover{
+	color: #ec993e;
+}
+.case1, .case2, .case5, .case6 {
+	margin-right: 30px;
+}
+.case1, .case2, .case3, .case4, .case5, .case6, .case7{
+	border-radius: 30px;
+}
+.case1, .case3, .case5, .case6, .case7 {
+	border-bottom: 0 none;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+}
+}
+.case1 .material-icons{
+	color : #008000;
+}
+.case2 .material-icons{
+	color : purple;
+}
+.case3 .material-icons{
+	color : maroon;
+}
+.case4 .material-icons{
+	color : #F9DB2C;
+}
+.case5 .material-icons{
+	color : black;
+}
+.case6 .material-icons{
+	color : #5aceed;
+}
+.case7	 .material-icons{
+	color : red;
+}
+.case2 p {
+	font-size: 25px;
+}
+.title-advice{
+	text-decoration: underline;
+	font-size: 23px;
+}
+.material-icons{
+	font-size: 45px;
+}
+h2{
+	text-decoration: underline;
+	color: #395099;
+}
+h3, h4, h5{
+	color: #395099;
+}
+
+ul .material-icons{
+	font-size: 19px;
+}
+.textemotivation{
+	color: #d70000;
+}
+.listNoStress a:over {
+	background-color: none;
+}
